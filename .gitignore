@@ -1,0 +1,9 @@
+# Binários e Executáveis
+*.exe
+*.o
+*.out
+
+# Pastas de IDEs e Compilação
+.vscode/
+build/
+bin/
