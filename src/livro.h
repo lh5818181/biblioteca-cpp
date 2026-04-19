@@ -18,7 +18,7 @@ public:
     std::string getAutor() const;
 
     // Exibe os dados formatados no console
-    void exibir() const;
+    void exibirLinha() const;
 };
 
 #endif
