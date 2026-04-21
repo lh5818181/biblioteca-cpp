@@ -2,17 +2,18 @@
 
 Projeto prático desenvolvido para consolidar conhecimentos em C++ e Programação Orientada a Objetos (POO). O sistema consiste em um CRUD (Create, Read, Update, Delete) de livros operando via console.
 
-## 🚀 Status do Projeto: Semana 1 (Em Desenvolvimento)
+## 🚀 Status do Projeto: Semana 2 (Em progresso)
 
-Atualmente o projeto está na fase de **Estrutura Base e Arquitetura**, com as funcionalidades de cadastro e listagem em memória já implementadas.
+O projeto avançou para a fase de **Manipulação de Dados**. A lógica de CRUD (Create, Read, Update, Delete) em memória foi totalmente implementada, permitindo a gestão completa do acervo durante a execução.
 
 ## 🛠️ Funcionalidades Atuais
 
-- [x] Cadastro de novos livros (ID automático, Título e Autor).
-- [x] Listagem formatada em tabela no console.
+- [x] Cadastro de novos livros (ID automático).
+- [x] Listagem formatada em tabela com alinhamento dinâmico.
+- [x] Edição de dados (Update) de livros existentes.
+- [x] Remoção de livros (Delete) por ID.
 - [x] Gerenciamento através de classe controladora (`Biblioteca`).
-- [ ] Persistência de dados em CSV (Semana 2).
-- [ ] Busca e filtros avançados (Semana 3).
+- [ ] Persistência de dados em CSV (Próximo passo).
 
 ## 📁 Estrutura de Pastas
 
