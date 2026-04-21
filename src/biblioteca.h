@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "livro.h"
+#include <fstream>
 
 class Biblioteca {
 private:
@@ -18,6 +19,7 @@ public:
     void listarLivros() const;
     void removerLivro(int id);
     void editarLivro(int id);
+    void salvarParaArquivo(const std::string& nomeArquivo) const;
 };
 
 #endif

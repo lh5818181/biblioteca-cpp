@@ -63,3 +63,22 @@ void Biblioteca::editarLivro(int id) {
     }
     std::cout << "\n[!] Livro com ID " << id << " nao encontrado." << std::endl;
 }
+
+void Biblioteca::salvarParaArquivo(const std::string& nomeArquivo) const {
+    std::ofstream arquivo(nomeArquivo);
+
+    if (!arquivo.is_open()) {
+        std::cout << "[!] Erro ao abrir arquivo para salvar dados.\n";
+        return;
+    }
+
+    // Escreve cada livro no formato: id,titulo,autor
+    for (const auto& livro : livros) {
+        arquivo << livro.getId() << ","
+                << livro.getTitulo() << ","
+                << livro.getAutor() << "\n";
+    }
+
+    arquivo.close();
+    std::cout << "[OK] Dados salvos com sucesso em " << nomeArquivo << "\n";
+}

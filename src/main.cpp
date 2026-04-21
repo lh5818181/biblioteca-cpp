@@ -41,6 +41,9 @@ int main() {
             std::cout << "Digite o ID do livro que deseja editar: ";
             std::cin >> idParaEditar;
             minhaBiblioteca.editarLivro(idParaEditar);
+        } else if (opcao == 0) {
+            minhaBiblioteca.salvarParaArquivo("data/livros.csv");
+            std::cout << "Saindo e salvando dados..." << std::endl;
         }
                 
     }
