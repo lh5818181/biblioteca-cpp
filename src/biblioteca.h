@@ -20,6 +20,7 @@ public:
     void removerLivro(int id);
     void editarLivro(int id);
     void salvarParaArquivo(const std::string& nomeArquivo) const;
+    void carregarDeArquivo(const std::string& nomeArquivo);
 };
 
 #endif

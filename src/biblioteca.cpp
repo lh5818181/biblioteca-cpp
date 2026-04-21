@@ -82,3 +82,32 @@ void Biblioteca::salvarParaArquivo(const std::string& nomeArquivo) const {
     arquivo.close();
     std::cout << "[OK] Dados salvos com sucesso em " << nomeArquivo << "\n";
 }
+
+void Biblioteca::carregarDeArquivo(const std::string& nomeArquivo) {
+    std::ifstream arquivo(nomeArquivo);
+    if (!arquivo.is_open()) return; // Se o arquivo não existir ainda, apenas ignora
+
+    livros.clear(); // Limpa a lista atual para evitar duplicatas
+    std::string linha;
+    int maiorId = 0;
+
+    while (std::getline(arquivo, linha)) {
+        if (linha.empty()) continue;
+
+        std::stringstream ss(linha);
+        std::string idStr, titulo, autor;
+
+        std::getline(ss, idStr, ',');
+        std::getline(ss, titulo, ',');
+        std::getline(ss, autor, ',');
+
+        int id = std::stoi(idStr);
+        livros.emplace_back(id, titulo, autor);
+        
+        if (id > maiorId) maiorId = id;
+    }
+
+    proximoId = maiorId + 1; // Garante que o proximo ID seja sequencial
+    arquivo.close();
+    std::cout << "[OK] " << livros.size() << " livros carregados do arquivo.\n";
+}

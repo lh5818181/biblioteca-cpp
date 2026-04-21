@@ -14,6 +14,8 @@ void exibirMenu() {
 
 int main() {
     Biblioteca minhaBiblioteca;
+    minhaBiblioteca.carregarDeArquivo("data/livros.csv"); // Carrega ao iniciar
+    
     int opcao = -1;
 
     while (opcao != 0) {
