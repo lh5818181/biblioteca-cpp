@@ -9,11 +9,11 @@ O projeto avançou para a fase de **Manipulação de Dados**. A lógica de CRUD 
 ## 🛠️ Funcionalidades Atuais
 
 - [x] Cadastro de novos livros (ID automático).
-- [x] Listagem formatada em tabela com alinhamento dinâmico.
-- [x] Edição de dados (Update) de livros existentes.
-- [x] Remoção de livros (Delete) por ID.
+- [x] Listagem formatada em tabela com **truncamento inteligente** para nomes longos.
+- [x] Edição completa (Update) de registros.
+- [x] Remoção (Delete) por ID.
+- [x] **Persistência de Dados:** Salvamento e carregamento automático via arquivos CSV.
 - [x] Gerenciamento através de classe controladora (`Biblioteca`).
-- [ ] Persistência de dados em CSV (Próximo passo).
 
 ## 📁 Estrutura de Pastas
 
