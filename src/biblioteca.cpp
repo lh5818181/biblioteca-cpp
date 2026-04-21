@@ -27,3 +27,21 @@ void Biblioteca::listarLivros() const {
     }
     std::cout << std::string(55, '-') << std::endl;
 }
+
+void Biblioteca::removerLivro(int id) {
+    bool encontrado = false;
+
+    // Percorre o vetor procurando pelo ID
+    for (auto it = livros.begin(); it != livros.end(); ++it) {
+        if (it->getId() == id) {
+            livros.erase(it); // Remove o livro da memória
+            encontrado = true;
+            std::cout << "\n[OK] Livro com ID " << id << " removido com sucesso!" << std::endl;
+            break; 
+        }
+    }
+
+    if (!encontrado) {
+        std::cout << "\n[!] Erro: Livro com ID " << id << " nao encontrado." << std::endl;
+    }
+}

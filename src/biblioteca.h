@@ -12,9 +12,11 @@ private:
 public:
     Biblioteca();
     
+    
     // Métodos da Semana 1
     void adicionarLivro(std::string titulo, std::string autor);
     void listarLivros() const;
+    void removerLivro(int id);
 };
 
 #endif

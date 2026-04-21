@@ -6,6 +6,7 @@ void exibirMenu() {
     std::cout << "\n--- SISTEMA DE BIBLIOTECA ---" << std::endl;
     std::cout << "1. Adicionar Livro" << std::endl;
     std::cout << "2. Listar Livros" << std::endl;
+    std::cout << "3. Remover Livro" << std::endl;
     std::cout << "0. Sair" << std::endl;
     std::cout << "Escolha uma opcao: ";
 }
@@ -29,6 +30,11 @@ int main() {
 
         } else if (opcao == 2) {
             minhaBiblioteca.listarLivros();
+        } else if (opcao == 3) {
+            int idParaRemover;
+            std::cout << "Digite o ID do livro que deseja remover: ";
+            std::cin >> idParaRemover;
+            minhaBiblioteca.removerLivro(idParaRemover);
         }
     }
     return 0;
