@@ -14,3 +14,6 @@ void Livro::exibirLinha() const {
               << std::setw(30) << titulo 
               << std::setw(20) << autor << std::endl;
 }
+
+void Livro::setTitulo(std::string novoTitulo) { titulo = novoTitulo; }
+void Livro::setAutor(std::string novoAutor) { autor = novoAutor; }

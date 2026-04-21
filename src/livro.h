@@ -19,6 +19,8 @@ public:
 
     // Exibe os dados formatados no console
     void exibirLinha() const;
+    void setTitulo(std::string novoTitulo);
+    void setAutor(std::string novoAutor);
 };
 
 #endif

@@ -17,6 +17,7 @@ public:
     void adicionarLivro(std::string titulo, std::string autor);
     void listarLivros() const;
     void removerLivro(int id);
+    void editarLivro(int id);
 };
 
 #endif

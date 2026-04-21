@@ -45,3 +45,21 @@ void Biblioteca::removerLivro(int id) {
         std::cout << "\n[!] Erro: Livro com ID " << id << " nao encontrado." << std::endl;
     }
 }
+
+void Biblioteca::editarLivro(int id) {
+    for (auto& livro : livros) {
+        if (livro.getId() == id) {
+            std::string novoTitulo, novoAutor;
+            std::cout << "Novo Titulo (atual: " << livro.getTitulo() << "): ";
+            std::getline(std::cin >> std::ws, novoTitulo);
+            std::cout << "Novo Autor (atual: " << livro.getAutor() << "): ";
+            std::getline(std::cin >> std::ws, novoAutor);
+
+            livro.setTitulo(novoTitulo);
+            livro.setAutor(novoAutor);
+            std::cout << "\n[OK] Livro atualizado com sucesso!" << std::endl;
+            return;
+        }
+    }
+    std::cout << "\n[!] Livro com ID " << id << " nao encontrado." << std::endl;
+}
