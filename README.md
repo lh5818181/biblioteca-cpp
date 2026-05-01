@@ -50,8 +50,8 @@ Certifique-se de ter um compilador C++ instalado (como o GCC).
 Este projeto segue um cronograma de 6 semanas:
 
 1. **Semana 1:** Setup e Classes Base *(Concluído)*
-2. **Semana 2:** CRUD Completo e Persistência (CSV)
-3. **Semana 3:** Relacionamentos e Buscas
+2. **Semana 2:** CRUD Completo e Persistência (CSV) *(Concluído)*
+3. **Semana 3:** Relacionamentos e Buscas *(Concluído)*
 4. **Semana 4:** Lógica de Empréstimos e Relatórios
 5. **Semana 5:** Refatoração e Testes
 6. **Semana 6:** Documentação Final e Publicação
