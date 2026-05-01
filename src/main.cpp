@@ -8,6 +8,7 @@ void exibirMenu() {
     std::cout << "2. Listar Livros" << std::endl;
     std::cout << "3. Remover Livro" << std::endl;
     std::cout << "4. Editar Livro" << std::endl;
+    std::cout << "5. Buscar por Titulo" << std::endl;
     std::cout << "0. Sair" << std::endl;
     std::cout << "Escolha uma opcao: ";
 }
@@ -46,6 +47,11 @@ int main() {
         } else if (opcao == 0) {
             minhaBiblioteca.salvarParaArquivo("data/livros.csv");
             std::cout << "Saindo e salvando dados..." << std::endl;
+        } else if (opcao == 5) {
+            std::string termo;
+            std::cout << "Digite o titulo (ou parte dele) para buscar: ";
+            std::getline(std::cin >> std::ws, termo);
+            minhaBiblioteca.buscarPorTitulo(termo);
         }
                 
     }

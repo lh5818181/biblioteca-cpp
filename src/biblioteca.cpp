@@ -111,3 +111,28 @@ void Biblioteca::carregarDeArquivo(const std::string& nomeArquivo) {
     arquivo.close();
     std::cout << "[OK] " << livros.size() << " livros carregados do arquivo.\n";
 }
+
+void Biblioteca::buscarPorTitulo(std::string termo) const {
+    bool encontrado = false;
+    std::cout << "\n--- RESULTADOS DA BUSCA POR: \"" << termo << "\" ---" << std::endl;
+
+    // Cabeçalho da tabela
+    std::cout << std::string(55, '-') << std::endl;
+    std::cout << std::left << std::setw(5) << "ID" 
+              << std::setw(30) << "TITULO" 
+              << std::setw(20) << "AUTOR" << std::endl;
+    std::cout << std::string(55, '-') << std::endl;
+
+    for (const auto& livro : livros) {
+        // busca direta por substring
+        if (livro.getTitulo().find(termo) != std::string::npos) {
+            livro.exibirLinha();
+            encontrado = true;
+        }
+    }
+
+    if (!encontrado) {
+        std::cout << "\n[!] Nenhum livro encontrado com o termo: " << termo << std::endl;
+    }
+    std::cout << std::string(55, '-') << std::endl;
+}

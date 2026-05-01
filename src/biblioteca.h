@@ -21,6 +21,7 @@ public:
     void editarLivro(int id);
     void salvarParaArquivo(const std::string& nomeArquivo) const;
     void carregarDeArquivo(const std::string& nomeArquivo);
+    void buscarPorTitulo(std::string termo) const;
 };
 
 #endif
