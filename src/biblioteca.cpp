@@ -136,3 +136,25 @@ void Biblioteca::buscarPorTitulo(std::string termo) const {
     }
     std::cout << std::string(55, '-') << std::endl;
 }
+
+void Biblioteca::buscarPorAutor(std::string autor) const {
+    bool encontrado = false;
+    std::cout << "\n--- LIVROS DO AUTOR: \"" << autor << "\" ---" << std::endl;
+    std::cout << std::string(55, '-') << std::endl;
+    std::cout << std::left << std::setw(5) << "ID" 
+              << std::setw(30) << "TITULO" 
+              << std::setw(20) << "AUTOR" << std::endl;
+    std::cout << std::string(55, '-') << std::endl;
+
+    for (const auto& livro : livros) {
+        if (livro.getAutor().find(autor) != std::string::npos) {
+            livro.exibirLinha();
+            encontrado = true;
+        }
+    }
+
+    if (!encontrado) {
+        std::cout << "\n[!] Nenhum livro encontrado para este autor." << std::endl;
+    }
+    std::cout << std::string(55, '-') << std::endl;
+}

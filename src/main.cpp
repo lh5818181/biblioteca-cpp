@@ -9,6 +9,7 @@ void exibirMenu() {
     std::cout << "3. Remover Livro" << std::endl;
     std::cout << "4. Editar Livro" << std::endl;
     std::cout << "5. Buscar por Titulo" << std::endl;
+    std::cout << "6. Buscar por Autor" << std::endl;
     std::cout << "0. Sair" << std::endl;
     std::cout << "Escolha uma opcao: ";
 }
@@ -52,6 +53,11 @@ int main() {
             std::cout << "Digite o titulo (ou parte dele) para buscar: ";
             std::getline(std::cin >> std::ws, termo);
             minhaBiblioteca.buscarPorTitulo(termo);
+        } else if (opcao == 6) {
+            std::string autor;
+            std::cout << "Digite o nome do autor para buscar: ";
+            std::getline(std::cin >> std::ws, autor);
+            minhaBiblioteca.buscarPorAutor(autor);
         }
                 
     }

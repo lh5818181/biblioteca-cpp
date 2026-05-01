@@ -22,6 +22,7 @@ public:
     void salvarParaArquivo(const std::string& nomeArquivo) const;
     void carregarDeArquivo(const std::string& nomeArquivo);
     void buscarPorTitulo(std::string termo) const;
+    void buscarPorAutor(std::string autor) const;
 };
 
 #endif
