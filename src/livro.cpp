@@ -2,12 +2,12 @@
 #include <iostream>
 #include <iomanip>
 
-Livro::Livro(int id, std::string titulo, std::string autor) 
-    : id(id), titulo(titulo), autor(autor) {}
+Livro::Livro(int id, std::string titulo, Autor* autorPtr) 
+    : id(id), titulo(titulo), autor(autorPtr) {}
 
 int Livro::getId() const { return id; }
 std::string Livro::getTitulo() const { return titulo; }
-std::string Livro::getAutor() const { return autor; }
+Autor* Livro::getAutor() const { return autor; }
 
 void Livro::exibirLinha() const {
     // limites para as colunas
@@ -19,7 +19,9 @@ void Livro::exibirLinha() const {
         tituloExibir = tituloExibir.substr(0, limiteTitulo - 3) + "...";
     }
 
-    std::string autorExibir = autor;
+    std::string nomeAutor = (autor != nullptr) ? autor->getNome() : "Desconhecido";
+
+    std::string autorExibir = nomeAutor;
     if (autorExibir.length() > limiteAutor) {
         autorExibir = autorExibir.substr(0, limiteAutor - 3) + "...";
     }
@@ -30,4 +32,4 @@ void Livro::exibirLinha() const {
 }
 
 void Livro::setTitulo(std::string novoTitulo) { titulo = novoTitulo; }
-void Livro::setAutor(std::string novoAutor) { autor = novoAutor; }
+void Livro::setAutor(Autor* novoAutor) { autor = novoAutor; }

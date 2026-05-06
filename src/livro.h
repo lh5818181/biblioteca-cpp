@@ -2,25 +2,26 @@
 #define LIVRO_H
 
 #include <string>
+#include "autor.h"
 
 class Livro {
 private:
     int id;
     std::string titulo;
-    std::string autor;
+    Autor* autor;
 
 public:
-    Livro(int id, std::string titulo, std::string autor);
+    Livro(int id, std::string titulo, Autor* autorPtr);
     
     // Getters para acessar as informações
     int getId() const;
     std::string getTitulo() const;
-    std::string getAutor() const;
+    Autor* getAutor() const;
 
     // Exibe os dados formatados no console
     void exibirLinha() const;
     void setTitulo(std::string novoTitulo);
-    void setAutor(std::string novoAutor);
+    void setAutor(Autor* novoAutor);
 };
 
 #endif

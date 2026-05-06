@@ -1,21 +1,34 @@
 #include "biblioteca.h"
 #include <iostream>
 #include <iomanip>
+#include <fstream>
+#include <sstream>
 
-Biblioteca::Biblioteca() : proximoId(1) {}
+// Construtor
+Biblioteca::Biblioteca() : proximoIdLivro(1), proximoIdAutor(1) {}
 
-void Biblioteca::adicionarLivro(std::string titulo, std::string autor) {
-    Livro novoLivro(proximoId++, titulo, autor);
-    livros.push_back(novoLivro);
+// Método Auxiliar
+Autor* Biblioteca::buscarOuCriarAutor(std::string nome) {
+    for (auto& autor : autores) {
+        if (autor.getNome() == nome) return &autor;
+    }
+    autores.emplace_back(proximoIdAutor++, nome, "Desconhecida");
+    return &autores.back();
+}
+
+// 1. Adicionar
+void Biblioteca::adicionarLivro(std::string titulo, std::string nomeAutor) {
+    Autor* autorPtr = buscarOuCriarAutor(nomeAutor);
+    livros.emplace_back(proximoIdLivro++, titulo, autorPtr);
     std::cout << "Livro adicionado com sucesso!\n";
 }
 
+// 2. Listar (O Linker reclamou desta)
 void Biblioteca::listarLivros() const {
     if (livros.empty()) {
         std::cout << "\n[!] A biblioteca esta vazia." << std::endl;
         return;
     }
-
     std::cout << "\n" << std::string(55, '-') << std::endl;
     std::cout << std::left << std::setw(5) << "ID" 
               << std::setw(30) << "TITULO" 
@@ -28,133 +41,94 @@ void Biblioteca::listarLivros() const {
     std::cout << std::string(55, '-') << std::endl;
 }
 
+// 3. Remover (O Linker reclamou desta)
 void Biblioteca::removerLivro(int id) {
     bool encontrado = false;
-
-    // Percorre o vetor procurando pelo ID
     for (auto it = livros.begin(); it != livros.end(); ++it) {
         if (it->getId() == id) {
-            livros.erase(it); // Remove o livro da memória
+            livros.erase(it);
             encontrado = true;
             std::cout << "\n[OK] Livro com ID " << id << " removido com sucesso!" << std::endl;
             break; 
         }
     }
-
-    if (!encontrado) {
-        std::cout << "\n[!] Erro: Livro com ID " << id << " nao encontrado." << std::endl;
-    }
+    if (!encontrado) std::cout << "\n[!] Erro: Livro nao encontrado." << std::endl;
 }
 
+// 4. Editar
 void Biblioteca::editarLivro(int id) {
     for (auto& livro : livros) {
         if (livro.getId() == id) {
-            std::string novoTitulo, novoAutor;
-            std::cout << "Novo Titulo (atual: " << livro.getTitulo() << "): ";
+            std::string novoTitulo, novoNomeAutor;
+            std::cout << "Novo Titulo: ";
             std::getline(std::cin >> std::ws, novoTitulo);
-            std::cout << "Novo Autor (atual: " << livro.getAutor() << "): ";
-            std::getline(std::cin >> std::ws, novoAutor);
+            std::cout << "Novo Autor: ";
+            std::getline(std::cin >> std::ws, novoNomeAutor);
 
+            Autor* novoAutorPtr = buscarOuCriarAutor(novoNomeAutor);
             livro.setTitulo(novoTitulo);
-            livro.setAutor(novoAutor);
+            livro.setAutor(novoAutorPtr);
             std::cout << "\n[OK] Livro atualizado com sucesso!" << std::endl;
             return;
         }
     }
-    std::cout << "\n[!] Livro com ID " << id << " nao encontrado." << std::endl;
 }
 
-void Biblioteca::salvarParaArquivo(const std::string& nomeArquivo) const {
-    std::ofstream arquivo(nomeArquivo);
-
-    if (!arquivo.is_open()) {
-        std::cout << "[!] Erro ao abrir arquivo para salvar dados.\n";
-        return;
-    }
-
-    // Escreve cada livro no formato: id,titulo,autor
-    for (const auto& livro : livros) {
-        arquivo << livro.getId() << ","
-                << livro.getTitulo() << ","
-                << livro.getAutor() << "\n";
-    }
-
-    arquivo.close();
-    std::cout << "[OK] Dados salvos com sucesso em " << nomeArquivo << "\n";
-}
-
-void Biblioteca::carregarDeArquivo(const std::string& nomeArquivo) {
-    std::ifstream arquivo(nomeArquivo);
-    if (!arquivo.is_open()) return; // Se o arquivo não existir ainda, apenas ignora
-
-    livros.clear(); // Limpa a lista atual para evitar duplicatas
-    std::string linha;
-    int maiorId = 0;
-
-    while (std::getline(arquivo, linha)) {
-        if (linha.empty()) continue;
-
-        std::stringstream ss(linha);
-        std::string idStr, titulo, autor;
-
-        std::getline(ss, idStr, ',');
-        std::getline(ss, titulo, ',');
-        std::getline(ss, autor, ',');
-
-        int id = std::stoi(idStr);
-        livros.emplace_back(id, titulo, autor);
-        
-        if (id > maiorId) maiorId = id;
-    }
-
-    proximoId = maiorId + 1; // Garante que o proximo ID seja sequencial
-    arquivo.close();
-    std::cout << "[OK] " << livros.size() << " livros carregados do arquivo.\n";
-}
-
+// 5. Buscar por Titulo (O Linker reclamou desta)
 void Biblioteca::buscarPorTitulo(std::string termo) const {
     bool encontrado = false;
-    std::cout << "\n--- RESULTADOS DA BUSCA POR: \"" << termo << "\" ---" << std::endl;
-
-    // Cabeçalho da tabela
-    std::cout << std::string(55, '-') << std::endl;
-    std::cout << std::left << std::setw(5) << "ID" 
-              << std::setw(30) << "TITULO" 
-              << std::setw(20) << "AUTOR" << std::endl;
-    std::cout << std::string(55, '-') << std::endl;
-
+    std::cout << "\n--- BUSCA: \"" << termo << "\" ---" << std::endl;
     for (const auto& livro : livros) {
-        // busca direta por substring
         if (livro.getTitulo().find(termo) != std::string::npos) {
             livro.exibirLinha();
             encontrado = true;
         }
     }
-
-    if (!encontrado) {
-        std::cout << "\n[!] Nenhum livro encontrado com o termo: " << termo << std::endl;
-    }
-    std::cout << std::string(55, '-') << std::endl;
+    if (!encontrado) std::cout << "[!] Nada encontrado.\n";
 }
 
-void Biblioteca::buscarPorAutor(std::string autor) const {
+// 6. Buscar por Autor (O Linker reclamou desta)
+void Biblioteca::buscarPorAutor(std::string nomeAutor) const {
     bool encontrado = false;
-    std::cout << "\n--- LIVROS DO AUTOR: \"" << autor << "\" ---" << std::endl;
-    std::cout << std::string(55, '-') << std::endl;
-    std::cout << std::left << std::setw(5) << "ID" 
-              << std::setw(30) << "TITULO" 
-              << std::setw(20) << "AUTOR" << std::endl;
-    std::cout << std::string(55, '-') << std::endl;
-
+    std::cout << "\n--- OBRAS DE: \"" << nomeAutor << "\" ---" << std::endl;
     for (const auto& livro : livros) {
-        if (livro.getAutor().find(autor) != std::string::npos) {
+        if (livro.getAutor()->getNome().find(nomeAutor) != std::string::npos) {
             livro.exibirLinha();
             encontrado = true;
         }
     }
+    if (!encontrado) std::cout << "[!] Nada encontrado.\n";
+}
 
-    if (!encontrado) {
-        std::cout << "\n[!] Nenhum livro encontrado para este autor." << std::endl;
+// Persistência
+void Biblioteca::salvarParaArquivo(const std::string& nomeArquivo) const {
+    std::ofstream arquivo(nomeArquivo);
+    if (!arquivo.is_open()) return;
+    for (const auto& livro : livros) {
+        arquivo << livro.getId() << "," << livro.getTitulo() << "," << livro.getAutor()->getNome() << "\n";
     }
-    std::cout << std::string(55, '-') << std::endl;
+    arquivo.close();
+}
+
+void Biblioteca::carregarDeArquivo(const std::string& nomeArquivo) {
+    std::ifstream arquivo(nomeArquivo);
+    if (!arquivo.is_open()) return;
+    livros.clear();
+    autores.clear();
+    std::string linha;
+    int maiorId = 0;
+    while (std::getline(arquivo, linha)) {
+        if (linha.empty()) continue;
+        std::stringstream ss(linha);
+        std::string idStr, titulo, nomeAutor;
+        std::getline(ss, idStr, ',');
+        std::getline(ss, titulo, ',');
+        std::getline(ss, nomeAutor, ',');
+        int id = std::stoi(idStr);
+        Autor* autorPtr = buscarOuCriarAutor(nomeAutor);
+        livros.emplace_back(id, titulo, autorPtr);
+        if (id > maiorId) maiorId = id;
+    }
+    proximoIdLivro = maiorId + 1;
+    arquivo.close();
 }
