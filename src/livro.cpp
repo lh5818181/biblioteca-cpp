@@ -10,25 +10,31 @@ std::string Livro::getTitulo() const { return titulo; }
 Autor* Livro::getAutor() const { return autor; }
 
 void Livro::exibirLinha() const {
-    // limites para as colunas
     int limiteTitulo = 27; 
-    int limiteAutor = 17;
+    int limiteAutorInfo = 22; // Aumentamos um pouco para caber o "(Nacionalidade)"
 
     std::string tituloExibir = titulo;
     if (tituloExibir.length() > limiteTitulo) {
         tituloExibir = tituloExibir.substr(0, limiteTitulo - 3) + "...";
     }
 
-    std::string nomeAutor = (autor != nullptr) ? autor->getNome() : "Desconhecido";
-
-    std::string autorExibir = nomeAutor;
-    if (autorExibir.length() > limiteAutor) {
-        autorExibir = autorExibir.substr(0, limiteAutor - 3) + "...";
+    // Pega o nome e a nacionalidade do autor de forma segura
+    std::string autorInfo = "Desconhecido";
+    if (autor != nullptr) {
+        autorInfo = autor->getNome();
+        if (autor->getNacionalidade() != "Desconhecida") {
+            autorInfo += " (" + autor->getNacionalidade() + ")"; // Exemplo: Chimamanda (Nigéria)
+        }
     }
 
+    if (autorInfo.length() > limiteAutorInfo) {
+        autorInfo = autorInfo.substr(0, limiteAutorInfo - 3) + "...";
+    }
+
+    // Imprime na tela mantendo a formatação alinhada
     std::cout << std::left << std::setw(5) << id 
               << std::setw(30) << tituloExibir 
-              << std::setw(20) << autorExibir << std::endl;
+              << std::setw(25) << autorInfo << std::endl;
 }
 
 void Livro::setTitulo(std::string novoTitulo) { titulo = novoTitulo; }

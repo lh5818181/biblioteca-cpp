@@ -3,33 +3,34 @@
 
 #include <vector>
 #include <string>
+#include <list> // Inclusão estratégica para corrigir o bug de memória
 #include "livro.h"
 #include "autor.h"
 
 class Biblioteca {
 private:
     std::vector<Livro> livros;
-    std::vector<Autor> autores;
+    std::list<Autor> autores; // Alterado de std::vector para std::list para estabilizar ponteiros
     int proximoIdLivro;
     int proximoIdAutor;
 
-    // Método auxiliar para gerenciar os ponteiros de autores
-    Autor* buscarOuCriarAutor(std::string nome);
+    // Método auxiliar atualizado para aceitar nacionalidade
+    Autor* buscarOuCriarAutor(std::string nome, std::string nacionalidade = "Desconhecida");
 
 public:
     Biblioteca();
 
-    void adicionarLivro(std::string titulo, std::string nomeAutor);
+    void adicionarLivro(std::string titulo, std::string nomeAutor, std::string nacionalidadeAutor);
     void listarLivros() const;
     void removerLivro(int id);
     void editarLivro(int id);
-    
+
     void buscarPorTitulo(std::string termo) const;
     void buscarPorAutor(std::string nomeAutor) const;
 
-    // Padronizando os nomes das funções de arquivo
-    void salvarParaArquivo(const std::string& nomeArquivo) const;
-    void carregarDeArquivo(const std::string& nomeArquivo);
+    // Gerenciamento relacional de persistência
+    void salvarParaArquivo(const std::string& nomeArquivoLivros) const;
+    void carregarDeArquivo(const std::string& nomeArquivoLivros);
 };
 
 #endif

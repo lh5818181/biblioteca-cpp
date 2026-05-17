@@ -16,38 +16,52 @@ void exibirMenu() {
 
 int main() {
     Biblioteca minhaBiblioteca;
-    minhaBiblioteca.carregarDeArquivo("data/livros.csv"); // Carrega ao iniciar
-    
+    minhaBiblioteca.carregarDeArquivo("data/livros.csv");
+
     int opcao = -1;
 
     while (opcao != 0) {
         exibirMenu();
-        std::cin >> opcao;
+        if (!(std::cin >> opcao)) {
+            std::cout << "\n[!] Entrada invalida. Digite um numero." << std::endl;
+            std::cin.clear();
+            std::cin.ignore(10000, '\n');
+            continue;
+        }
         std::cin.ignore();
 
         if (opcao == 1) {
-            std::string titulo, autor;
+            std::string titulo, autor, nacionalidade;
             std::cout << "Titulo: ";
             std::getline(std::cin, titulo);
             std::cout << "Autor: ";
             std::getline(std::cin, autor);
-            minhaBiblioteca.adicionarLivro(titulo, autor);
+            std::cout << "Nacionalidade do Autor: ";
+            std::getline(std::cin, nacionalidade);
+            minhaBiblioteca.adicionarLivro(titulo, autor, nacionalidade);
 
         } else if (opcao == 2) {
             minhaBiblioteca.listarLivros();
         } else if (opcao == 3) {
             int idParaRemover;
             std::cout << "Digite o ID do livro que deseja remover: ";
-            std::cin >> idParaRemover;
-            minhaBiblioteca.removerLivro(idParaRemover);
+            if (std::cin >> idParaRemover) {
+                minhaBiblioteca.removerLivro(idParaRemover);
+            } else {
+                std::cout << "\n[!] ID invalido." << std::endl;
+                std::cin.clear();
+                std::cin.ignore(10000, '\n');
+            }
         } else if (opcao == 4) {
             int idParaEditar;
             std::cout << "Digite o ID do livro que deseja editar: ";
-            std::cin >> idParaEditar;
-            minhaBiblioteca.editarLivro(idParaEditar);
-        } else if (opcao == 0) {
-            minhaBiblioteca.salvarParaArquivo("data/livros.csv");
-            std::cout << "Saindo e salvando dados..." << std::endl;
+            if (std::cin >> idParaEditar) {
+                minhaBiblioteca.editarLivro(idParaEditar);
+            } else {
+                std::cout << "\n[!] ID invalido." << std::endl;
+                std::cin.clear();
+                std::cin.ignore(10000, '\n');
+            }
         } else if (opcao == 5) {
             std::string termo;
             std::cout << "Digite o titulo (ou parte dele) para buscar: ";
@@ -58,8 +72,10 @@ int main() {
             std::cout << "Digite o nome do autor para buscar: ";
             std::getline(std::cin >> std::ws, autor);
             minhaBiblioteca.buscarPorAutor(autor);
+        } else if (opcao == 0) {
+            minhaBiblioteca.salvarParaArquivo("data/livros.csv");
+            std::cout << "Saindo e salvando dados..." << std::endl;
         }
-                
     }
     return 0;
 }
