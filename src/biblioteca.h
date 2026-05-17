@@ -31,6 +31,9 @@ public:
     // Gerenciamento relacional de persistência
     void salvarParaArquivo(const std::string& nomeArquivoLivros) const;
     void carregarDeArquivo(const std::string& nomeArquivoLivros);
+
+    void emprestarLivro(int id);
+    void devolverLivro(int id);
 };
 
 #endif

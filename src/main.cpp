@@ -10,6 +10,8 @@ void exibirMenu() {
     std::cout << "4. Editar Livro" << std::endl;
     std::cout << "5. Buscar por Titulo" << std::endl;
     std::cout << "6. Buscar por Autor" << std::endl;
+    std::cout << "7. Emprestar Livro" << std::endl;
+    std::cout << "8. Devolver Livro" << std::endl;
     std::cout << "0. Sair" << std::endl;
     std::cout << "Escolha uma opcao: ";
 }
@@ -75,6 +77,28 @@ int main() {
         } else if (opcao == 0) {
             minhaBiblioteca.salvarParaArquivo("data/livros.csv");
             std::cout << "Saindo e salvando dados..." << std::endl;
+        }  else if (opcao == 7) {
+        int idParaEmprestar;
+        std::cout << "Digite o ID do livro que deseja emprestar: ";
+        if (std::cin >> idParaEmprestar) {
+            minhaBiblioteca.emprestarLivro(idParaEmprestar);
+        } else {
+            std::cout << "\n[!] ID invalido." << std::endl;
+            std::cin.clear();
+            std::cin.ignore(10000, '\n');
+        }
+    } else if (opcao == 8) {
+        int idParaDevolver;
+        std::cout << "Digite o ID do livro que deseja devolver: ";
+        if (std::cin >> idParaDevolver) {
+            minhaBiblioteca.devolverLivro(idParaDevolver);
+        } else {
+            std::cout << "\n[!] ID invalido." << std::endl;
+            std::cin.clear();
+            std::cin.ignore(10000, '\n');
+        }
+    } else {
+            std::cout << "\n[!] Opcao invalida." << std::endl;
         }
     }
     return 0;

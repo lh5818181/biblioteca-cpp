@@ -33,7 +33,8 @@ void Biblioteca::listarLivros() const {
     std::cout << "\n" << std::string(55, '-') << std::endl;
     std::cout << std::left << std::setw(5) << "ID"
               << std::setw(30) << "TITULO"
-              << std::setw(20) << "AUTOR" << std::endl;
+              << std::setw(20) << "AUTOR"
+              << std::setw(12) << "STATUS" << std::endl;
     std::cout << std::string(55, '-') << std::endl;
 
     for (const auto& livro : livros) {
@@ -183,4 +184,40 @@ void Biblioteca::carregarDeArquivo(const std::string& nomeArquivoLivros) {
         arquivoLivros.close();
     }
     proximoIdLivro = maiorIdLivro + 1;
+}
+
+void Biblioteca::emprestarLivro(int id) {
+    for (auto& livro : livros) {
+        if (livro.getId() == id) {
+            if (!livro.isDisponivel()) {
+                std::cout << "\n[!] Erro: O livro \"" << livro.getTitulo() << "\" ja esta emprestado.\n";
+                return;
+            }
+            
+            std::string data;
+            std::cout << "Digite a data de emprestimo (DD/MM/AAAA): ";
+            std::getline(std::cin >> std::ws, data);
+            
+            livro.emprestar(data);
+            std::cout << "\n[OK] Livro \"" << livro.getTitulo() << "\" emprestado com sucesso!\n";
+            return;
+        }
+    }
+    std::cout << "\n[!] Erro: Livro com ID " << id << " nao encontrado.\n";
+}
+
+void Biblioteca::devolverLivro(int id) {
+    for (auto& livro : livros) {
+        if (livro.getId() == id) {
+            if (livro.isDisponivel()) {
+                std::cout << "\n[!] Ops: O livro \"" << livro.getTitulo() << "\" ja esta na biblioteca (Disponivel).\n";
+                return;
+            }
+            
+            livro.devolver();
+            std::cout << "\n[OK] Livro \"" << livro.getTitulo() << "\" devolvido com sucesso!\n";
+            return;
+        }
+    }
+    std::cout << "\n[!] Erro: Livro com ID " << id << " nao encontrado.\n";
 }

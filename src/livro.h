@@ -9,6 +9,8 @@ private:
     int id;
     std::string titulo;
     Autor* autor;
+    bool disponivel;
+    std::string dataEmprestimo;
 
 public:
     Livro(int id, std::string titulo, Autor* autorPtr);
@@ -22,6 +24,12 @@ public:
     void exibirLinha() const;
     void setTitulo(std::string novoTitulo);
     void setAutor(Autor* novoAutor);
+
+    bool isDisponivel() const;
+    std::string getDataEmprestimo() const;
+
+    void emprestar(std::string data);
+    void devolver();
 };
 
 #endif
